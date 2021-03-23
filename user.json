@@ -1,0 +1,7 @@
+{
+    "name": "Geovane",
+    "email": "geovaneartedesign@gmail.com",
+    "password": "123",
+    "passwordConfirmation": "123",
+    "role":"ADMIN_ROLE"
+}
