@@ -6,7 +6,7 @@ export class MailAwsProvider implements IMailProvider {
   private readonly transporter: Mail
   constructor () {
     this.transporter = nodemailer.createTransport({
-      host: 'email-smtp.us-east-1.amazonaws.com',
+      host: process.env.HOST,
       port: 587,
       auth: {
         user: process.env.EMAIL, // generated ethereal user

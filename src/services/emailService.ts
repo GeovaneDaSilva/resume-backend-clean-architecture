@@ -2,28 +2,28 @@ import { EmailModel } from '../domain/models/email'
 import EmailRepository from '../domain/repositories/emailRepository'
 
 class EmailService {
-  get () {
-    return EmailRepository.find()
+  async get () {
+    return EmailRepository.find({}, 'name email role password_hash created_date')
   }
 
-  getSelect () {
-    return EmailRepository.find({})
+  async getOne (email: string) {
+    return EmailRepository.findOne({ email })
   }
 
-  getById (id: string) {
-    return EmailRepository.findById(id)
+  async getById (id: string) {
+    return EmailRepository.findById(id, 'name email role password_hash created_date')
   }
 
-  async create (data) {
-    return EmailRepository.create(data)
+  async create (email: EmailModel) {
+    return EmailRepository.create(email)
   }
 
-  update (id) {
-    return EmailRepository.findOneAndUpdate(id)
+  async update (id, email) {
+    return EmailRepository.findByIdAndUpdate(id, email, { new: true, useFindAndModify: true })
   }
 
-  delete (id: string, user) {
-    return EmailRepository.findById(id, user)
+  async delete (id: string) {
+    return EmailRepository.findByIdAndDelete(id)
   }
 }
 

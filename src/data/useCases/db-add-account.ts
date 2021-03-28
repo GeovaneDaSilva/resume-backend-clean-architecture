@@ -1,4 +1,6 @@
 
+// eslint-disable-next-line @typescript-eslint/quotes
+
 import UserService from '../../services/userService'
 import { AddAccount, AddAccountModel } from '../../domain/useCases/add-account'
 import { Cryptography } from '../../infra/cryptgraphy/encryper'
@@ -24,7 +26,14 @@ export class DbAddAccount implements AddAccount {
         email: 'process.environments@gmail.com'
       },
       subject: 'Welcome to the coder',
-      body: '<p> You your the so best</p>'
+      // eslint-disable-next-line @typescript-eslint/quotes
+      body: `<h4> Thank you for creating your account !! </h4> <br>
+      Access credentials: <br>
+      User: ${account.email}
+      <br>
+      Password: ${account.password}
+
+        `
     })
     return new Promise(resolve => resolve(
       userDB

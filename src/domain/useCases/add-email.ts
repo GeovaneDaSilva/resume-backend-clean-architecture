@@ -4,6 +4,7 @@ export interface IAddress {
 }
 
 export interface IMessage {
+  email: any
   to: IAddress
   from: IAddress
   subject: string

@@ -7,6 +7,7 @@ const LogSchema = new mongoose.Schema({
   role: { type: String },
   date: { type: String }
 })
+
 export default LogSchema
 
 export class LogModel {

@@ -9,7 +9,26 @@ export class DbAddEmail implements AddEmailAccount {
   }
 
   async addMail (message: IMessage): Promise<IMessage> {
-    const emailAccount: any = await emailService.create(message)
+    const newMessage: any = {
+      from: {
+        name: message.email.from.name,
+        email: message.email.from.email
+      },
+      to: {
+        name: message.email.to.name,
+        email: message.email.to.email
+      },
+      subject: message.email.subject,
+      message: message.email.message,
+      date: new Date()
+
+    }
+
+    const email: any = {
+      email: newMessage
+    }
+
+    const emailAccount: any = await emailService.create(email)
 
     if (emailAccount) {
       const { email } = await emailAccount

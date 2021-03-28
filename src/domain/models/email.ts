@@ -19,7 +19,9 @@ const EmailSchema = new mongoose.Schema({
       }
     },
     subject: { type: String },
-    message: { type: String }
+    message: { type: String },
+    date: { type: String }
+
   }
 })
 export default EmailSchema
