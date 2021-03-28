@@ -1,10 +1,15 @@
 import { Authentication } from '../../../domain/useCases/authentication'
 import UserService from '../../../services/userService'
-import jwt from 'jsonwebtoken'
 import { AccountModel } from '../../../domain/models/account'
 import { DbAddData } from '../db-add-log'
+import { AuthenticationToken } from '../../../presentation/interfaces/jwt-token'
 
-export class Dbauth extends DbAddData implements Authentication {
+export class Dbauth implements Authentication {
+  constructor (private readonly authenticationToken: AuthenticationToken, private readonly dbAddData: DbAddData) {
+    this.authenticationToken = authenticationToken
+    this.dbAddData = dbAddData
+  }
+
   async auth (email: string, password: string): Promise<AccountModel> {
     try {
       const userDB: any = await UserService.getOne(email)
@@ -15,19 +20,17 @@ export class Dbauth extends DbAddData implements Authentication {
         role: userDB.role,
         date: new Date()
       }
-      const token = await jwt.sign({
-        user: User
-      }, process.env.SEED, { expiresIn: process.env.EXPIRES_IN })
+
+      const token = await this.authenticationToken.token(userDB)
 
       if (!token) {
-        await this.add(User)
+        await this.dbAddData.add(User)
         throw Error('NO exist TOken in the data')
       }
 
-      await this.add(User)
-
+      const user = await this.dbAddData.add(User)
       const newUser: any = {
-        User,
+        user,
         token
       }
       return newUser
