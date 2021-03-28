@@ -8,9 +8,14 @@ export class MailAwsProvider implements IMailProvider {
     this.transporter = nodemailer.createTransport({
       host: process.env.HOST,
       port: 587,
+      secure: false,
       auth: {
         user: process.env.EMAIL, // generated ethereal user
         pass: process.env.PASSWORD
+      },
+      tls: {
+        // do not fail on invalid certs
+        rejectUnauthorized: true
       }
     })
   }
