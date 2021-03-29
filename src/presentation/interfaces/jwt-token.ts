@@ -1,3 +1,3 @@
-export interface AuthenticationToken {
+export interface IJwt {
   token: (value: string) => Promise<string>
 }

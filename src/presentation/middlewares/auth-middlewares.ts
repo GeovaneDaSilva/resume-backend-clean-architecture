@@ -15,8 +15,10 @@ export class AuthenticationToken {
       }
 
       const user: any = await jwt.verify(token, process.env.SEED)
+
       req.user = user.user
-      const userDB = await UserService.getById(user.user.id)
+
+      const userDB = await UserService.getById(req.user.id)
 
       if (!userDB) {
         return res.status(401).json({

@@ -1,13 +1,14 @@
 import { Authentication } from '../../../domain/useCases/authentication'
 import UserService from '../../../services/userService'
+import jwt from 'jsonwebtoken'
 import { AccountModel } from '../../../domain/models/account'
-import { DbAddData } from '../db-add-log'
-import { AuthenticationToken } from '../../../presentation/interfaces/jwt-token'
+import { AddLog } from '../../../domain/useCases/add-log'
+import { IJwt } from '../../../presentation/interfaces/jwt-token'
 
 export class Dbauth implements Authentication {
-  constructor (private readonly authenticationToken: AuthenticationToken, private readonly dbAddData: DbAddData) {
-    this.authenticationToken = authenticationToken
-    this.dbAddData = dbAddData
+  constructor (private readonly addLog: AddLog, private readonly iJwt: IJwt) {
+    this.addLog = addLog
+    this.iJwt = iJwt
   }
 
   async auth (email: string, password: string): Promise<AccountModel> {
@@ -21,16 +22,17 @@ export class Dbauth implements Authentication {
         date: new Date()
       }
 
-      const token = await this.authenticationToken.token(userDB)
+      const token = await this.iJwt.token(User)
 
       if (!token) {
-        await this.dbAddData.add(User)
+        await this.addLog.add(User)
         throw Error('NO exist TOken in the data')
       }
 
-      const user = await this.dbAddData.add(User)
+      await this.iJwt.token(User)
+
       const newUser: any = {
-        user,
+        User,
         token
       }
       return newUser
