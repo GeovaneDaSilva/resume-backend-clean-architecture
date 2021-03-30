@@ -28,7 +28,7 @@ export class Dbauth implements Authentication {
         throw Error('NO exist TOken in the data')
       }
 
-      // await this.addLog.add(User)
+      await this.addLog.add(User)
       const newUser: any = {
         User,
         token
