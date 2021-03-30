@@ -25,12 +25,10 @@ export class Dbauth implements Authentication {
       const token = await this.iJwt.token(User)
 
       if (!token) {
-        await this.addLog.add(User)
         throw Error('NO exist TOken in the data')
       }
 
-      await this.iJwt.token(User)
-
+      await this.addLog.add(User)
       const newUser: any = {
         User,
         token

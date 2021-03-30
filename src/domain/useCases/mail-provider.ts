@@ -25,6 +25,10 @@ export interface IGetEmailProvider {
   getMail: (message: IMessage) => Promise<IMessage>
 }
 
+export interface IGetOneEmailProvider {
+  getMailById: (message: IMessage) => Promise<IMessage>
+}
+
 export interface DeleteEmail {
   delete: (account: IMessageResponse) => Promise<IMessageResponse>
 }

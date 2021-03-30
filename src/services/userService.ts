@@ -6,6 +6,10 @@ class UserService {
     return UserRepository.find({}, 'name email role password_hash created_date')
   }
 
+  async account () {
+    return UserRepository.count()
+  }
+
   async getOne (email: string) {
     return UserRepository.findOne({ email })
   }
