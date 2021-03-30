@@ -13,7 +13,7 @@ export class DbAddCard implements AddCard {
 
   async add (card: BusinessCardModel): Promise<BusinessCardModel> {
     const cardDB: any = await BusinessCardService.create(card)
-    const url = `http://localhost:4200/#/business-card-detail/${cardDB._id}`
+    const url = `https://processenv.com/development/clean-architecture/#/business-card-detail/${cardDB._id}`
     const code = await this.iQRCode.QR(url)
 
     card.img = await code
