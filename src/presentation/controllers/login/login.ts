@@ -1,6 +1,6 @@
 import { HttpRequest, HttpResponse, Controller, EmailValidator } from './login-protocols'
 import { InvalidParamError, MissingParamError, NoReadyExist, ServerError } from '../../errors'
-import { badRequest, notFound, serverError, success } from '../../helpers/http-helper'
+import { badRequest, notFound, serverError, success, unauthorized } from '../../helpers/http-helper'
 import { Authentication } from '../../../domain/useCases/authentication'
 import UserService from '../../../services/userService'
 import { Dcryptography } from '../../../infra/cryptgraphy/encryper'
@@ -36,7 +36,7 @@ export class LoginController implements Controller {
       }
       const passwordDcrypt = await this.dcryptgraphy.dencrypt(user.password, account.password_hash)
       if (passwordDcrypt === false) {
-        return badRequest(new NoReadyExist('Error of Authentication'))
+        return unauthorized(new Error('Unauthorized'))
       }
       if (!passwordDcrypt) {
         throw Error('Error in dcrypt')

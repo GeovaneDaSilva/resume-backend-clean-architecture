@@ -8,7 +8,7 @@ export class AuthenticationToken {
     try {
       const token = req.header('x-access-token')
       if (!token) {
-        return res.status(500).json({
+        return res.status(403).json({
           ok: false,
           message: 'Token is required'
         })
@@ -21,7 +21,7 @@ export class AuthenticationToken {
       const userDB = await UserService.getById(req.user.id)
 
       if (!userDB) {
-        return res.status(401).json({
+        return res.status(403).json({
           ok: false,
           mensaje: {
             mensaje: 'Must be authenticated ADMIN_ ROLE User no exist'
@@ -31,7 +31,7 @@ export class AuthenticationToken {
       next()
     } catch (error) {
       if (error) {
-        res.status(405).json({
+        res.status(403).json({
           error
         })
       }
