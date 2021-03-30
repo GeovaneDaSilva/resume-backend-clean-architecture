@@ -65,5 +65,8 @@
     "swagger-ui-express": "^4.1.6",
     "ts-node-dev": "^1.1.6",
     "validator": "^13.5.2"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
