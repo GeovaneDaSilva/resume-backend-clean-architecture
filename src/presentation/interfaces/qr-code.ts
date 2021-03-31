@@ -1,3 +1,3 @@
 export interface IQRCode {
-  QR: (value: any) => Promise<any>
+  QR: (value: string) => Promise<string>
 }
